@@ -1,0 +1,15 @@
+{
+    "name": "effer/loanInterests",
+    "description": "Fetch load interests from various banks",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Thomas Effersøe",
+            "email": "thomas@effersoe.net"
+        }
+    ],
+    "autoload": {
+        "psr-4": {"effer\\LoanInterests\\": "src/"}
+    },
+    "require": {}
+}
