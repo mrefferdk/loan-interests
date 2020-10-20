@@ -1,5 +1,5 @@
 {
-    "name": "effer/loanInterests",
+    "name": "effer/loan-interests",
     "description": "Fetch load interests from various banks",
     "type": "library",
     "authors": [
