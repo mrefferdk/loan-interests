@@ -8,7 +8,7 @@ interface InterestInterface
 {
     public function loadHtmlFromUrl();
 
-    public function findInterestsInHtml();
+    public function findInterestsInHtml($html): array;
 
 
 }

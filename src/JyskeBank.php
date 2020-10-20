@@ -16,19 +16,16 @@ class JyskeBank implements InterestInterface
     public function loadHtmlFromUrl()
     {
         if (empty($this->htmlContent)) {
-            $this->htmlContent = file_get_contents($this->url);
+            $this->htmlContent = file_get_contents($this->url); // @codeCoverageIgnore
         }
 
         return $this->htmlContent;
     }
 
-    /**
-     * @return mixed
-     * @throws Exception
-     */
-    public function findInterestsInHtml()
+
+    public function findInterestsInHtml($html): array
     {
-        $html = $this->loadHtmlFromUrl();
+        //$html = $this->loadHtmlFromUrl();
         $tableHtml = $this->findTableHtml($html);
         $pattern = "@<td>(-?[0-9]+,[0-9]+)@s";
         preg_match_all($pattern, $tableHtml, $matches);
@@ -72,11 +69,10 @@ class JyskeBank implements InterestInterface
             throw new Exception('Provide a number from 1 to 6');
         }
 
-        $interests = $this->findInterestsInHtml();
+        $html = $this->loadHtmlFromUrl();
+
+        $interests = $this->findInterestsInHtml($html);
         $interest = $this->convertCommaSeparator($interests[$year - 1]); // starts with index 0 as F1
-        if (!$this->validateInterestValue($interest)) {
-            throw new Exception('Invalid result value. Html might have changed');
-        }
 
         return $interest;
     }
@@ -104,11 +100,6 @@ class JyskeBank implements InterestInterface
     public function getF5Interest()
     {
         return $this->getInterestByYear(5);
-    }
-
-    public function validateInterestValue($value)
-    {
-        return is_numeric($value);
     }
 
     /**
