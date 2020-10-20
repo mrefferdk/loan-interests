@@ -6,7 +6,7 @@ use Exception;
 
 class JyskeBank implements InterestInterface
 {
-    const URL = "https://www.jyskebank.dk/bolig"; // More interests: https://www.jyskebank.dk/bolig/boliglaan/kurser
+    protected $url = "https://www.jyskebank.dk/bolig"; // More interests: https://www.jyskebank.dk/bolig/boliglaan/kurser
 
     protected $htmlContent;
 
@@ -16,7 +16,7 @@ class JyskeBank implements InterestInterface
     public function loadHtmlFromUrl()
     {
         if (empty($this->htmlContent)) {
-            $this->htmlContent = file_get_contents(self::URL);
+            $this->htmlContent = file_get_contents($this->url);
         }
 
         return $this->htmlContent;
@@ -36,7 +36,6 @@ class JyskeBank implements InterestInterface
         if (!isset($matches[1]) || count($matches[1]) < 5) {
             throw new Exception('Invalid preg_match. Html might have changed');
         }
-
         return $matches[1];
     }
 
@@ -111,4 +110,14 @@ class JyskeBank implements InterestInterface
     {
         return is_numeric($value);
     }
+
+    /**
+     * @param mixed $htmlContent
+     */
+    public function setHtmlContent($htmlContent): void
+    {
+        $this->htmlContent = $htmlContent;
+    }
+
+
 }
