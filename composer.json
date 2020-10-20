@@ -2,6 +2,7 @@
     "name": "effer/loan-interests",
     "description": "Fetch load interests from various banks",
     "type": "library",
+    "license": "MIT",
     "authors": [
         {
             "name": "Thomas Effersøe",
